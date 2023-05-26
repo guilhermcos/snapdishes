@@ -11,5 +11,5 @@ export async function postSignInData(body) {
 }
 
 export async function postAvatarImage(formData, config) {
-  return await axios.post("http://localhost:5000/upload/avatarimage", formData, config);
+  return await axios.post(`${API_URI}/upload/avatarimage`, formData, config);
 }
