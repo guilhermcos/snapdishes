@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { ProgressBar } from "react-loader-spinner";
 import { FormContainer, Message, SignUpContainer, Title } from "./StyledSignUpContent";
+import { postSignInData, postSignUpData } from "../../services/api";
 
 export default function SignUpContent() {
   const [inputData, setInputData] = useState({
@@ -46,9 +47,9 @@ export default function SignUpContent() {
     }
   }
 
-  function signUp(e) {
+  async function signUp(e) {
     e.preventDefault();
-    const { name, email, password, confirmPassword } = inputData;
+    const { name, userName, email, password, confirmPassword } = inputData;
     if (password !== confirmPassword) {
       setShowedMessage("Password and password confirmation must match.");
       setTimeout(() => {
@@ -58,22 +59,24 @@ export default function SignUpContent() {
     }
     const body = {
       name,
+      userName,
       email,
       password,
+      confirmPassword,
     };
     setIsloading(true);
-    axios
-      .post(`${process.env.REACT_APP_LINK_API}/auth/sign-up`, body)
-      .then((res) => {
-        setShowedMessage(false);
-        setIsloading(false);
-        console.log(res.data);
-        navigate("/");
-      })
-      .catch((err) => {
-        setIsloading(false);
-        setShowedMessage(err.response.data);
-      });
+    try {
+      await postSignUpData(body);
+      const { token } = (await postSignInData({ email: body.email, password: body.password })).data;
+      localStorage.setItem("token", token);
+
+      setShowedMessage(false);
+      setIsloading(false);
+      navigate("/test");
+    } catch (err) {
+      setIsloading(false);
+      setShowedMessage(err.response.data);
+    }
   }
 
   return (

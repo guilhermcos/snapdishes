@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import logo from "../../assets/logo/logo.svg"
+import logo from "../../assets/logo/logo.svg";
 import axios from "axios";
 import { ProgressBar } from "react-loader-spinner";
 import { FormContainer, LoginContainer, Message, Title } from "./StyledLoginContent";
+import { postSignInData } from "../../services/api";
 
 export default function LoginContent() {
   const [inputData, setInputData] = useState({
@@ -28,7 +29,7 @@ export default function LoginContent() {
     }
   }
 
-  function signIn(e) {
+  async function signIn(e) {
     e.preventDefault();
     setIsLoading(true);
     const { email, password } = inputData;
@@ -36,19 +37,19 @@ export default function LoginContent() {
       email,
       password,
     };
-    axios
-      .post(`${process.env.REACT_APP_LINK_API}/auth/sign-in`, body)
-      .then((res) => {
-        setShowedMessage(false);
-        setIsLoading(false);
-        const { token } = res.data;
-        localStorage.setItem("token", token);
-        navigate("/home");
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        setShowedMessage(err.response.data);
-      });
+
+    try {
+      const response = await postSignInData(body);
+      setShowedMessage(false);
+      setIsLoading(false);
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      console.log("login com sucesso")
+      navigate("/home");
+    } catch (err) {
+      setIsLoading(false);
+      setShowedMessage(err.response.data);
+    }
   }
 
   return (
