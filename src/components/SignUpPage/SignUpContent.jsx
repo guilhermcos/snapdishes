@@ -72,7 +72,7 @@ export default function SignUpContent() {
 
       setShowedMessage(false);
       setIsloading(false);
-      navigate("/test");
+      navigate("/home/feed");
     } catch (err) {
       setIsloading(false);
       setShowedMessage(err.response.data);

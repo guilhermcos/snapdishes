@@ -7,7 +7,7 @@ import {
   AccountCircleOutlined,
 } from "@mui/icons-material";
 import { LibraryBooks, Search, Notifications, AccountCircle } from "@mui/icons-material";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AddCircle } from "@mui/icons-material";
 
 export default function Footer() {
@@ -42,9 +42,10 @@ export default function Footer() {
     },
   ];
   const location = useLocation();
+  const navigate = useNavigate();
 
   function clicked() {
-    
+    navigate("/posts/new");
   }
 
   return (

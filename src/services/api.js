@@ -13,3 +13,7 @@ export async function postSignInData(body) {
 export async function postAvatarImage(formData, config) {
   return await axios.post(`${API_URI}/upload/avatarimage`, formData, config);
 }
+
+export async function postPostData(formData, config) {
+  return await axios.post(`${API_URI}/posts/create`, formData, config);
+}
