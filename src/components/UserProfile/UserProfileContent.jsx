@@ -5,10 +5,13 @@ import Post from "./Post";
 import { getSelfProfile } from "../../services/api";
 import { ArrowBackIos } from "@mui/icons-material";
 import AccountMenu from "./SettingsButton";
+import { BallTriangle, MagnifyingGlass } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfileContent() {
   const [userData, setUserData] = useState(null);
   const [postsLiked, setPostsLiked] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,7 +35,15 @@ export default function UserProfileContent() {
   }, []);
 
   if (!userData) {
-    return <div>carregando</div>;
+    return (
+      <LoadingContainer>
+        <BallTriangle color="#2e8af6" />
+      </LoadingContainer>
+    );
+  }
+
+  function toEditProfile() {
+    navigate("edit");
   }
 
   return (
@@ -41,9 +52,7 @@ export default function UserProfileContent() {
       <BackgroundImg src="https://cdn.pixabay.com/photo/2023/05/22/10/49/houses-8010401_1280.jpg" />
       <AvatarImg src={userData.avatarImg}></AvatarImg>
       <UserName>{userData.userName}</UserName>
-      <Biography>
-        Olá, sou o Guilherme. estudante de desenvolvimento web para desktop e mobile
-      </Biography>
+      <Biography>{userData.biography ? userData.biography : ""}</Biography>
       <ProfileInfo>
         <div>
           <span>{userData.followersCount}</span>
@@ -53,7 +62,7 @@ export default function UserProfileContent() {
           <span>{userData.followingCount}</span>
           <h3>Following</h3>
         </div>
-        <button>Edit Profile</button>
+        <button onClick={toEditProfile}>Edit Profile</button>
       </ProfileInfo>
       <PostsNav>
         <div>Posts</div>
@@ -76,6 +85,15 @@ export default function UserProfileContent() {
     </UserProfileContainer>
   );
 }
+
+const LoadingContainer = styled.div`
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(50dvh - 150px);
+`;
 
 const PostsContainer = styled.div`
   padding-top: 2vh;

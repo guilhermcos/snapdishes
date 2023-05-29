@@ -10,11 +10,13 @@ import {
   Title,
 } from "./StyledCreatePost";
 import { postPostData } from "../../services/api";
+import { ProgressBar } from "react-loader-spinner";
 
 export default function CreatepostContent() {
   const [file, setFile] = useState(null);
   const [caption, setCaption] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   async function uploadImage(e) {
@@ -31,10 +33,13 @@ export default function CreatepostContent() {
         headers: { Authorization: `Bearer ${token}` },
       };
 
+      setIsLoading(true);
       try {
         await postPostData(formData, config);
+        setIsLoading(false);
         navigate("/home/account");
       } catch (err) {
+        setIsLoading(false);
         console.log(err);
       }
     }
@@ -77,9 +82,9 @@ export default function CreatepostContent() {
           <label htmlFor="caption">Write a caption for your photo:</label>
           <textarea onChange={handleChange} id="caption" maxLength={140}></textarea>
         </CaptionContainer>
-        <button>submit</button>
+        <button>{isLoading ? <ProgressBar borderColor="white" /> : "Submit"}</button>
       </StyledForm>
-      <Link to="/home/feed">Abort the creation of a new post.</Link>
+      <Link to="/home/account">Abort the creation of a new post.</Link>
     </CreatePostContainer>
   );
 }

@@ -20,7 +20,7 @@ export const CaptionContainer = styled.div`
     border-radius: 8px;
     padding: 4px;
     font-family: "Roboto Slab";
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 20px;
     text-align: left;

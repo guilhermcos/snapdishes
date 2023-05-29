@@ -46,7 +46,7 @@ export const FormContainer = styled.div`
       background-color: #ffffff;
       height: 100%;
       font-family: "Roboto Slab";
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 500;
       line-height: 20px;
       letter-spacing: 0em;
@@ -111,7 +111,7 @@ export const LoginContainer = styled.div`
   padding-right: 15px;
   background-color: #181a1c;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -96,7 +96,7 @@ const StyledForm = styled.form`
     height: 30px;
     border: none;
     font-family: "Roboto Slab";
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 20px;
     letter-spacing: 2px;

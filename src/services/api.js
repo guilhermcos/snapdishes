@@ -45,3 +45,7 @@ export async function postlikePost(id, config) {
 export async function postUnlikePost(id, config) {
   return await axios.post(`${API_URI}/likes/unlike/${id}`, {}, config);
 }
+
+export async function postUpdateBiography(body, config) {
+  return await axios.post(`${API_URI}/users/upload/biography`, body, config);
+}

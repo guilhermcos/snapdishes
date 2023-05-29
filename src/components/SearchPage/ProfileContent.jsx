@@ -10,6 +10,7 @@ import Post from "../UserProfile/Post";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ArrowBackIos } from "@mui/icons-material";
+import { BallTriangle } from "react-loader-spinner";
 
 export default function ProfileContent() {
   const [userData, setUserData] = useState(null);
@@ -54,12 +55,14 @@ export default function ProfileContent() {
       headers: { Authorization: `Bearer ${token}` },
     };
 
+    userData.followersCount += 1;
+    setIsFollowed(1);
     try {
       await postFollowUser(userData.id, config);
-      userData.followersCount += 1;
-      setIsFollowed(1);
     } catch (err) {
       console.log(err.message);
+      userData.followersCount -= 1;
+      setIsFollowed(0);
     }
   }
 
@@ -72,18 +75,23 @@ export default function ProfileContent() {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-
+    userData.followersCount -= 1;
+    setIsFollowed(0);
     try {
       await postUnfollowUser(userData?.id, config);
-      userData.followersCount -= 1;
-      setIsFollowed(0);
     } catch (err) {
+      userData.followersCount += 1;
+      setIsFollowed(1);
       console.log(err.response.data);
     }
   }
 
   if (!userData) {
-    return <div>carregando</div>;
+    return (
+      <LoadingContainer>
+        <BallTriangle color="#2e8af6" />
+      </LoadingContainer>
+    );
   }
 
   return (
@@ -94,9 +102,7 @@ export default function ProfileContent() {
       <BackgroundImg src="https://cdn.pixabay.com/photo/2023/05/22/10/49/houses-8010401_1280.jpg" />
       <AvatarImg src={userData.avatarImg}></AvatarImg>
       <UserName>{userData.userName}</UserName>
-      <Biography>
-        Olá, sou o Guilherme. estudante de desenvolvimento web para desktop e mobile
-      </Biography>
+      <Biography>{userData.biography ? userData.biography : ""}</Biography>
       <ProfileInfo>
         <div>
           <span>{userData.followersCount}</span>
@@ -133,6 +139,15 @@ export default function ProfileContent() {
     </ProfileContainer>
   );
 }
+
+const LoadingContainer = styled.div`
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(50dvh - 150px);
+`;
 
 const UnfollowButton = styled.button`
   display: flex;

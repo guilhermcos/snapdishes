@@ -10,8 +10,9 @@ export default function Home() {
     <HomeContainer>
       <Routes>
         <Route path="/" element={<FeedPage />}></Route>
-        <Route path="/account" element={<UserProfilePage />} />
+        <Route path="/account/*" element={<UserProfilePage />} />
         <Route path="/search/*" element={<SearchPage />} />
+        <Route path="/feed" element={<FeedPage />} />
       </Routes>
       <Footer />
     </HomeContainer>
