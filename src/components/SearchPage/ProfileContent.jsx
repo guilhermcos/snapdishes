@@ -33,7 +33,7 @@ export default function ProfileContent() {
       .then((res) => {
         console.log(res.data.rows);
         setUserData(res.data?.rows[0]);
-        setPostsLiked(res.data?.rows[0]?.likedPosts);
+        setPostsLiked(res.data?.rows[0]?.likedPosts || []);
         setIsFollowed(res.data?.rows[0]?.isFollowed);
       })
       .catch((err) => {
