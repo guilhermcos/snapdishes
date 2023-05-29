@@ -49,3 +49,7 @@ export async function postUnlikePost(id, config) {
 export async function postUpdateBiography(body, config) {
   return await axios.post(`${API_URI}/users/upload/biography`, body, config);
 }
+
+export async function getFeedPosts(config) {
+  return await axios.get(`${API_URI}/posts/feed`, config);
+}
