@@ -44,11 +44,11 @@ export default function LoginContent() {
       setIsLoading(false);
       const { token } = response.data;
       localStorage.setItem("token", token);
-      console.log("login com sucesso")
-      navigate("/home");
+      console.log("login com sucesso");
+      navigate("/home/account");
     } catch (err) {
       setIsLoading(false);
-      setShowedMessage(err.response.data);
+      alert(err);
     }
   }
 

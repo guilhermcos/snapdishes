@@ -7,6 +7,6 @@ const GlobalStyle = createGlobalStyle`
 body {
     background-color: #181a1c;
 }
-`;
+`
 
 export default GlobalStyle;

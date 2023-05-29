@@ -2,11 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { postAvatarImage } from "../services/api";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SetAvatarPage() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
 
   async function uploadImage(e) {
     e.preventDefault();
@@ -23,6 +24,7 @@ export default function SetAvatarPage() {
       try {
         const response = await postAvatarImage(formData, config);
         console.log(response.data);
+        navigate("home/account")
       } catch (err) {
         console.log(err.response.data);
       }
@@ -56,7 +58,7 @@ export default function SetAvatarPage() {
         )}
         <button>submit</button>
       </StyledForm>
-      <Link to="/home/feed">Depois eu coloco!!</Link>
+      <Link to="/home/account">Depois eu coloco!!</Link>
     </SetAvatarContainer>
   );
 }
