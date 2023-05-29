@@ -53,3 +53,11 @@ export async function postUpdateBiography(body, config) {
 export async function getFeedPosts(config) {
   return await axios.get(`${API_URI}/posts/feed`, config);
 }
+
+export async function getFollowers(config) {
+  return await axios.get(`${API_URI}/users/followers`, config);
+}
+
+export async function getFollowings(config) {
+  return await axios.get(`${API_URI}/users/followings`, config);
+}

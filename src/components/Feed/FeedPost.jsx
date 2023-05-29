@@ -23,7 +23,6 @@ export default function FeedPost(props) {
 
     try {
       await postlikePost(post.postId, config);
-      console.log("sucesso");
     } catch (err) {
       setLikedPosts((likedPosts) => likedPosts.filter((postId) => postId !== post.postId));
       console.log(err.response.data);
@@ -46,7 +45,6 @@ export default function FeedPost(props) {
 
     try {
       await postUnlikePost(post.postId, config);
-      console.log("sucesso");
     } catch (err) {
       setLikedPosts((likedPosts) => [...likedPosts, post.postId]);
       console.log(err.response.data);
@@ -60,7 +58,15 @@ export default function FeedPost(props) {
   return (
     <StyledPost>
       <PostHeader>
-        <img onClick={toUser} src={post.avatarImg} alt="" />
+        <img
+          onClick={toUser}
+          src={
+            post.avatarImg
+              ? post.avatarImg
+              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+          }
+          alt=""
+        />
         <h2 onClick={toUser}>{post.userName}</h2>
       </PostHeader>
       {post.caption && <PostCaption>{<p>{post.postCaption}</p>}</PostCaption>}

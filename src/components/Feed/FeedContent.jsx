@@ -21,7 +21,6 @@ export default function FeedContent() {
 
     getFeedPosts(config)
       .then((res) => {
-        console.log(res.data);
         setPostsData(res.data);
         let likes = [];
         res.data.map((post) => {
@@ -29,7 +28,6 @@ export default function FeedContent() {
             likes.push(post.postId);
           }
         });
-        console.log(likes);
         setLikedPosts(likes);
       })
       .catch((err) => {

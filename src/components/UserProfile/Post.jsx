@@ -43,7 +43,7 @@ export default function Post(props) {
 
     setPostsLiked((postsLiked) => postsLiked.filter((postId) => postId !== post.id));
     post.likesCount -= 1;
-    
+
     try {
       await postUnlikePost(post.id, config);
       console.log("sucesso");
@@ -56,7 +56,14 @@ export default function Post(props) {
   return (
     <StyledPost>
       <PostHeader>
-        <img src={userData.avatarImg} alt="" />
+        <img
+          src={
+            userData.avatarImg
+              ? userData.avatarImg
+              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+          }
+          alt=""
+        />
         <h2>{userData.userName}</h2>
       </PostHeader>
       {post.caption && <PostCaption>{<p>{post.caption}</p>}</PostCaption>}

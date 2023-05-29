@@ -27,7 +27,6 @@ export default function SearchContent() {
       .then((res) => {
         setIsSearchLoading(false);
         setSearchResult(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         setIsSearchLoading(false);

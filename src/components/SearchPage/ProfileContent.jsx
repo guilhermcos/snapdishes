@@ -31,7 +31,6 @@ export default function ProfileContent() {
 
     getProfileInfo(id, config)
       .then((res) => {
-        console.log(res.data.rows);
         setUserData(res.data?.rows[0]);
         setPostsLiked(res.data?.rows[0]?.likedPosts || []);
         setIsFollowed(res.data?.rows[0]?.isFollowed);
@@ -100,7 +99,13 @@ export default function ProfileContent() {
         <ArrowBackIos style={{ color: "#ffffff" }} />
       </BackButton>
       <BackgroundImg src="https://cdn.pixabay.com/photo/2023/05/22/10/49/houses-8010401_1280.jpg" />
-      <AvatarImg src={userData.avatarImg}></AvatarImg>
+      <AvatarImg
+        src={
+          userData.avatarImg
+            ? userData.avatarImg
+            : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+        }
+      ></AvatarImg>
       <UserName>{userData.userName}</UserName>
       <Biography>{userData.biography ? userData.biography : ""}</Biography>
       <ProfileInfo>

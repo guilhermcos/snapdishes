@@ -25,7 +25,6 @@ export default function UserProfileContent() {
 
     getSelfProfile(config)
       .then((res) => {
-        console.log(res.data.rows[0]);
         setUserData(res.data?.rows[0]);
         setPostsLiked(res.data?.rows[0]?.likedPosts || []);
       })
@@ -46,19 +45,33 @@ export default function UserProfileContent() {
     navigate("edit");
   }
 
+  function toFollowers() {
+    navigate("followers");
+  }
+
+  function toFollowings() {
+    navigate("followings");
+  }
+
   return (
     <UserProfileContainer>
       <AccountMenu />
       <BackgroundImg src="https://cdn.pixabay.com/photo/2023/05/22/10/49/houses-8010401_1280.jpg" />
-      <AvatarImg src={userData.avatarImg}></AvatarImg>
+      <AvatarImg
+        src={
+          userData.avatarImg
+            ? userData.avatarImg
+            : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+        }
+      ></AvatarImg>
       <UserName>{userData.userName}</UserName>
       <Biography>{userData.biography ? userData.biography : ""}</Biography>
       <ProfileInfo>
-        <div>
+        <div onClick={toFollowers}>
           <span>{userData.followersCount}</span>
           <h3>Followers</h3>
         </div>
-        <div>
+        <div onClick={toFollowings}>
           <span>{userData.followingCount}</span>
           <h3>Following</h3>
         </div>
