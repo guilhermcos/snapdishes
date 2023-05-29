@@ -7,7 +7,7 @@ export default function LoginPage() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/home");
+      navigate("/home/account");
     }
   }, []);
 
