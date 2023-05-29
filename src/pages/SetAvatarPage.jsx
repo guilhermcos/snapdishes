@@ -3,10 +3,12 @@ import axios from "axios";
 import { postAvatarImage } from "../services/api";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { ProgressBar } from "react-loader-spinner";
 
 export default function SetAvatarPage() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,11 +31,13 @@ export default function SetAvatarPage() {
         headers: { Authorization: `Bearer ${token}` },
       };
 
+      setIsLoading(true);
       try {
         const response = await postAvatarImage(formData, config);
-        console.log(response.data);
+        setIsLoading(false);
         navigate("/home/account");
       } catch (err) {
+        setIsLoading(false);
         console.log(err.response.data);
       }
     }
@@ -64,7 +68,7 @@ export default function SetAvatarPage() {
             <img src={preview} alt="" />
           </ImageContainer>
         )}
-        <button>submit</button>
+        <button>{isLoading ? <ProgressBar borderColor="#ffffff" /> : "Submit"}</button>
       </StyledForm>
       <Link to="/home/account">Depois eu coloco!!</Link>
     </SetAvatarContainer>
