@@ -35,7 +35,6 @@ export default function SearchContent() {
     await getSearchResult(searchString, config)
       .then((res) => {
         setIsSearchLoading(false);
-        console.log(res.data);
         setSearchResult(res.data);
       })
       .catch((err) => {
