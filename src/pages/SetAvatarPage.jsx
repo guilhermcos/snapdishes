@@ -32,7 +32,7 @@ export default function SetAvatarPage() {
       try {
         const response = await postAvatarImage(formData, config);
         console.log(response.data);
-        navigate("home/account");
+        navigate("/home/account");
       } catch (err) {
         console.log(err.response.data);
       }
