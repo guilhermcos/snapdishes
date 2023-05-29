@@ -72,7 +72,7 @@ export default function SignUpContent() {
 
       setShowedMessage(false);
       setIsloading(false);
-      navigate("/home/feed");
+      navigate("/upload/avatar");
     } catch (err) {
       setIsloading(false);
       setShowedMessage(err.response.data);
