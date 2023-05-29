@@ -125,7 +125,7 @@ export default function ProfileContent() {
                 post={post}
                 userData={userData}
                 setPostsLiked={setPostsLiked}
-                isLiked={postsLiked.includes(post.id)}
+                isLiked={postsLiked ? postsLiked.includes(post.id) : []}
               />
             );
           })}
