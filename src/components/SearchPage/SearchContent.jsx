@@ -8,7 +8,16 @@ import { getSearchResult } from "../../services/api";
 
 export default function SearchContent() {
   const [isSearchLoading, setIsSearchLoading] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState(null);
+  const [suggest, setSuggest] = useState([
+    {
+      avatarImg: "https://drive.google.com/uc?id=1dVwwV2TPQwvGtJQOR2UFWZt5iQ0swxxl",
+      id: 1,
+      name: "Guilherme Gouveia da Costa",
+      score: 35.7692314684391,
+      userName: "guilhermcos",
+    },
+  ]);
 
   async function searchChange(e) {
     setIsSearchLoading(true);
@@ -26,6 +35,7 @@ export default function SearchContent() {
     await getSearchResult(searchString, config)
       .then((res) => {
         setIsSearchLoading(false);
+        console.log(res.data);
         setSearchResult(res.data);
       })
       .catch((err) => {
@@ -45,14 +55,46 @@ export default function SearchContent() {
         )}
       </SearchBar>
       <SearchResultContainer>
-        {searchResult &&
+        {searchResult ? (
           searchResult.map((userInfo) => {
             return <ProfilePreview key={userInfo.id} userInfo={userInfo} />;
-          })}
+          })
+        ) : (
+          <Suggestions>
+            <TitleSuggestions>sugestões:</TitleSuggestions>
+            {suggest.map((userInfo) => {
+              console.log("entrei");
+              return <ProfilePreview key={userInfo.id} userInfo={userInfo} />;
+            })}
+          </Suggestions>
+        )}
       </SearchResultContainer>
     </SearchContainar>
   );
 }
+
+const TitleSuggestions = styled.div`
+  width: 100vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin-bottom: 20px;
+
+  color: #ecebed;
+  font-family: "Roboto Slab";
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 34px;
+  letter-spacing: 0em;
+  text-align: center;
+`;
+
+const Suggestions = styled.div`
+  padding-top: 10px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const SearchResultContainer = styled.div`
   padding-top: 20px;
