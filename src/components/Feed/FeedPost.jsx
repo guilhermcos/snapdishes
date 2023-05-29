@@ -132,6 +132,7 @@ const PostHeader = styled.div`
     width: 8.5vw;
     height: 8.5vw;
     border-radius: 50%;
+    object-fit: cover;
   }
   h2 {
     font-family: "Roboto Slab";
