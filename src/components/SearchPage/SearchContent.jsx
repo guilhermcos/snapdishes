@@ -63,7 +63,6 @@ export default function SearchContent() {
           <Suggestions>
             <TitleSuggestions>sugestões:</TitleSuggestions>
             {suggest.map((userInfo) => {
-              console.log("entrei");
               return <ProfilePreview key={userInfo.id} userInfo={userInfo} />;
             })}
           </Suggestions>
