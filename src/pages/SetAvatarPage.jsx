@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { postAvatarImage } from "../services/api";
 import styled from "styled-components";
@@ -8,6 +8,14 @@ export default function SetAvatarPage() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      localStorage.removeItem("token");
+      navigate("/");
+    }
+  }, []);
 
   async function uploadImage(e) {
     e.preventDefault();
@@ -24,7 +32,7 @@ export default function SetAvatarPage() {
       try {
         const response = await postAvatarImage(formData, config);
         console.log(response.data);
-        navigate("home/account")
+        navigate("home/account");
       } catch (err) {
         console.log(err.response.data);
       }
