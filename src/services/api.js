@@ -39,9 +39,9 @@ export async function getSearchResult(searchString, config) {
 }
 
 export async function postlikePost(id, config) {
-  return await axios.post(`http://192.168.0.22:5000/likes/like/${id}`, {}, config);
+  return await axios.post(`${API_URI}/likes/like/${id}`, {}, config);
 }
 
 export async function postUnlikePost(id, config) {
-  return await axios.post(`http://192.168.0.22:5000/likes/unlike/${id}`, {}, config);
+  return await axios.post(`${API_URI}/likes/unlike/${id}`, {}, config);
 }
