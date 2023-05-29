@@ -12,7 +12,7 @@ export const StyledFooter = styled.div`
 
 export const NewPostIcon = styled.div`
   position: fixed;
-  left: calc(50% - 3vh);
+  left: calc(50% - 3vw);
   svg {
     color: #f62e8e;
     font-size: 6vh;
